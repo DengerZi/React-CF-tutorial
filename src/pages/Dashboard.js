@@ -8,7 +8,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Container from "../components/Container";
 
-import data from "../requests/places";
+import { getPlaces } from "../requests/places";
 import PlaceHorizontal from "../components/places/PlaceHorizontal";
 
 export default class Dashboard extends React.Component {
@@ -17,9 +17,20 @@ export default class Dashboard extends React.Component {
 		super(props);
 
 		this.state = {
-			places: data.places,
-		};
+			places: []
+		}
 
+		this.loadPlace()
+	}
+
+	loadPlace(){
+		getPlaces() .then(jsonResponse => {
+			console.log(jsonResponse);
+			this.setState({
+				places: jsonResponse.docs
+			})
+		})
+		
 	}
 
   places(){

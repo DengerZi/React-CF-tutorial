@@ -11,12 +11,13 @@ import RaisedButton from "material-ui/RaisedButton";
 import { indigo400 } from "material-ui/styles/colors";
 
 import Title from "../components/Title";
-import Container from "../components/Container"
+import Container from "../components/Container";
 import Benefit from "../components/Benefits";
 import PlaceCard from "../components/places/PlaceCard";
 import data from "../requests/places";
 
 import TranstionGroup from "react-transition-group/TransitionGroup";
+import { Link } from "react-router-dom";
 
 export default class Home extends React.Component {
 	constructor(props) {
@@ -55,8 +56,9 @@ export default class Home extends React.Component {
 					<Container>
 						<div className='Header-main'>
 							<Title></Title>
-
-							<RaisedButton label='Crear cuenta gratuita' secondary={true} />
+							<Link to='/signup'>
+								<RaisedButton label='Crear cuenta gratuita' secondary={true} />
+							</Link>
 
 							<img
 								className='Header-illustration'

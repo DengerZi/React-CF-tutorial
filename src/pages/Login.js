@@ -8,8 +8,36 @@ import Container from "../components/Container";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
+import { login, signUp } from '../requests/auth';
+
 import { BrowserRouter as ReactRouter, Route, Link } from "react-router-dom";
 export default class Login extends React.Component {
+
+	constructor (props){
+		super(props);
+
+		this.requestAuth = this.requestAuth.bind(this);
+		this.createAccount = this.createAccount.bind(this);
+	}
+
+	requestAuth(){
+		const credentials = {
+			email: this.refs.emailField.getValue(),
+			password: this.refs.passwordField.getValue(),
+		}
+
+		login(credentials).then(console.log).catch(console.log);
+	}
+	
+	createAccount(){
+		const credentials = {
+			email: this.refs.emailField.getValue(),
+			password: this.refs.passwordField.getValue(),
+		}
+
+		signUp(credentials).then(console.log).catch(console.log);
+	}
+
 	render() {
 		return (
 			<div className='row middle-xs'>
@@ -21,11 +49,13 @@ export default class Login extends React.Component {
 								floatingLabelText='Correo electrónico'
 								type='email'
 								className='textfield'
+								ref="emailField"
 							/>
 							<TextField
 								floatingLabelText='Contraseña'
 								type='password'
 								className='textfield'
+								ref="passwordField"
 							/>
 							<div className='Login-actions'>
 								<Route
@@ -37,7 +67,7 @@ export default class Login extends React.Component {
 												<Link to='/signup' style={{ marginRight: "1em" }}>
 													Crear nueva cuenta
 												</Link>
-												<RaisedButton label='Ingresar' secondary={true} />
+												<RaisedButton onClick={ this.requestAuth } label='Ingresar' secondary={true} />
 											</div>
 										);
 									}}></Route>
@@ -50,11 +80,10 @@ export default class Login extends React.Component {
 												<Link to='/login' style={{ marginRight: "1em" }}>
 													Ya tengo cuenta
 												</Link>
-												<RaisedButton label='Crear cuenta' secondary={true} />
+												<RaisedButton onClick={ this.createAccount } label='Crear cuenta' secondary={true} />
 											</div>
 										);
 									}}></Route>
-								<Link to='/' style={{ marginRight: "1em" }}>Inicio</Link>
 							</div>
 						</div>
 					</Container>
