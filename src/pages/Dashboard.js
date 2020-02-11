@@ -24,7 +24,7 @@ export default class Dashboard extends React.Component {
 	}
 
 	loadPlace(){
-		getPlaces() .then(jsonResponse => {
+		getPlaces().then(jsonResponse => {
 			console.log(jsonResponse);
 			this.setState({
 				places: jsonResponse.docs
@@ -35,7 +35,7 @@ export default class Dashboard extends React.Component {
 
   places(){
 		return this.state.places.map((place, index) => {
-			return <PlaceHorizontal place={place} />
+			return <PlaceHorizontal place={place} key={index} />
 		})
   }
 

@@ -3,7 +3,9 @@
 import React from "react";
 
 import { BrowserRouter as ReactRouter, Route, Switch } from "react-router-dom";
-import { render } from "react-dom";
+import { connect } from 'react-redux';
+// import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -13,21 +15,21 @@ import Place from "./pages/Place";
 
 const userSignedIn = false;
 
-export default class Router extends React.Component {
+class Router extends React.Component {
 	signedInRoutes() {
-		if (userSignedIn) {
+		if (this.props.user.jwt) {
 			return <Route path='/new' render={() => <h1>Welcome</h1>}></Route>;
 		}
 	}
 
 	home() {
-		if (userSignedIn) return Dashboard;
+		if (this.props.user.jwt) return Dashboard;
 		return Home;
 	}
 
 	render() {
 		return (
-			<ReactRouter>
+			<ConnectedRouter history={this.props.history}>
 				<App>
 					<Switch>
 						<Route exact path='/' component={this.home()}></Route>
@@ -37,7 +39,15 @@ export default class Router extends React.Component {
 					</Switch>
 					{this.signedInRoutes()}
 				</App>
-			</ReactRouter>
+			</ConnectedRouter>
 		);
 	}
 }
+
+function mapStateToProps(state, ownProps) {
+	return {
+		user: state.user
+	}
+}
+
+export default connect(mapStateToProps)(Router);
