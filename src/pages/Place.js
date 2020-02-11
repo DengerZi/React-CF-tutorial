@@ -6,7 +6,7 @@ import { Card } from "material-ui";
 import Container from "../components/Container";
 import { getPlace } from "../requests/places";
 
- class Place extends React.Component {
+class Place extends React.Component {
 	constructor(props) {
     super(props); 
     const slug = props.match.params.slug;
@@ -19,7 +19,6 @@ import { getPlace } from "../requests/places";
   
   loadPlace(slug){
     getPlace(slug).then(json => {
-      console.log(json);
       this.setState({
         place: json
       })

@@ -13,7 +13,6 @@ import Dashboard from "./pages/Dashboard";
 import App from "./App";
 import Place from "./pages/Place";
 
-const userSignedIn = false;
 
 class Router extends React.Component {
 	signedInRoutes() {

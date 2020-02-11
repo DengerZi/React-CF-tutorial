@@ -4,14 +4,34 @@ import AppBar from 'material-ui/AppBar';
 
 import {indigo600} from 'material-ui/styles/colors';
 
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
+
 export default class MyAppBar extends React.Component {
+
+  getName(){
+    if(this.props.user.name)
+      return this.props.user.name;
+    if(this.props.user.email)
+      return this.props.user.email.split("@")[0];
+  }
+
+  title(user) {
+    return (
+      <span style={{'cursor': 'pointer', 'textTransform': 'capitalize'}}>
+        { this.props.user.jwt ? 'Aloha ' + this.getName() : 'Places' }
+      </span>
+    );
+  }
+
   render(){
     return(
       <AppBar
-        title="Places"
+        title={this.title()}
         style={{'backgroundColor': indigo600}}
         onTitleClick={this.props.goHome}
         showMenuIconButton={false}
+        iconElementRight={ this.props.user.jwt ? <LogoutButton logout={this.props.logout} /> : <LoginButton /> }
       />
     )
   }

@@ -9,7 +9,7 @@ import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 import { createBrowserHistory } from 'history';
 
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'connected-react-router'; 
 
 const history = createBrowserHistory();
 
