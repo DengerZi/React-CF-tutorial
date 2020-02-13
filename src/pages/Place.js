@@ -2,12 +2,16 @@
 
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from 'react-redux';
 import { Card } from "material-ui";
 import FlatButton from 'material-ui/FlatButton';
 
+import * as visitsActions from '../actions/visitsActions';
+
 import Container from "../components/Container";
 import { getPlace } from "../requests/places";
-import VisitModal from "../components/visits/VisitModal";
+import VisitForm  from "../components/visits/VisitForm";
+import VisitsCollection from '../components/visits/VisitsCollection';
 
 class Place extends React.Component {
 	constructor(props) {
@@ -19,27 +23,23 @@ class Place extends React.Component {
 			place: {},
 		};
 
-		this.openVisitsModal = this.openVisitsModal.bind(this)
   }
   
   loadPlace(slug){
+
+		this.props.dispatch(visitsActions.loadAllforPlace(slug));
+		
     getPlace(slug).then(json => {
       this.setState({
         place: json
       })
     })
 	}
-	
-	openVisitsModal(){
-		// console.log(this.refs);
-		this.refs.modalRef.openModal()
-	}
 
 	render() {
     const {place} = this.state; // <-- Destructing assignment ES6
 		return (
 			<div className='Place-container'>
-				<VisitModal place={place} ref='modalRef' />
 				<header
 					className='Place-cover'
 					style={{
@@ -62,9 +62,12 @@ class Place extends React.Component {
 									<p>{place.description}</p>
 								</div>
 								<div style={{'marginTop': '1em'}}>
-									<FlatButton label="Agregar un comentario" secondary={true} onClick={this.openVisitsModal} />
+									<VisitForm place={place} />
 								</div>
 							</Card>
+						</div>
+						<div className="col-xs">
+							<VisitsCollection visits={this.props.visits} />
 						</div>
 					</div>
 				</Container>
@@ -73,4 +76,10 @@ class Place extends React.Component {
 	}
 }
 
-export default withRouter(Place);
+function mapStateToProps(state, ownProps){
+	return {
+		visits: state.visits
+	}
+}
+
+export default connect(mapStateToProps)(withRouter(Place));

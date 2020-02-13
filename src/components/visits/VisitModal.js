@@ -11,8 +11,9 @@ import Title from '../Title';
 export default class VisitModal extends React.Component {
   constructor(props){
     super(props);
-    this.state = { open: true }
+    this.state = { open: false }
     this.closeModal = this.closeModal.bind(this)
+    this.submit = this.submit.bind(this)
   }
 
   openModal() {
@@ -25,6 +26,16 @@ export default class VisitModal extends React.Component {
     this.setState({
       open: false
     })
+  }
+
+  submit(){
+    const observation = this.refs.observationField.getValue()
+
+    this.props.onSubmit(observation)
+
+    // this.refs.observationField.setValue("")
+
+    this.closeModal()
   }
 
   render(){
@@ -44,7 +55,7 @@ export default class VisitModal extends React.Component {
                 <div className="col-xs">
                   <TextField floatingLabelText="Cuéntanos qué te parecio este lugar" ref="observationField" multiLine={true} style={{'width': '100%'}} />
                   <div style={{'marginTop': '1em'}}>
-                    <RaisedButton label='Guardar' secondary={true} />
+                    <RaisedButton label='Guardar' secondary={true} onClick={this.submit} />
                     <FlatButton label='Cancelar' style={{'marginLeft': '2em' }} onClick={this.closeModal} />
                   </div>
                 </div>

@@ -1,0 +1,23 @@
+import React from 'react'
+import Visit from './Visit'
+import TransitionGroup from 'react-transition-group/TransitionGroup'
+
+export default class VisitsCollection extends React.Component{
+
+  visits(){
+    if(this.props.visits.length < 1 ) return
+    return this.props.visits[0].map((visit, index) => {
+      return <Visit visit={visit} key={index} />
+    })
+  }
+
+  render(){
+    return(
+      <div>
+        <TransitionGroup>
+          {this.visits( )}
+        </TransitionGroup>
+      </div>
+    )
+  }
+}
