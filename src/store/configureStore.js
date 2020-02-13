@@ -5,8 +5,7 @@ import persistState from "redux-localstorage";
 import reducers from "../reducers";
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-
-import { routerReducer } from "react-router-redux";
+import thunk from 'redux-thunk';
 
 const enhancer = compose(persistState("user"));
 export const history = createBrowserHistory();
@@ -23,7 +22,7 @@ export default function configureStore(middleware) {
       applyMiddleware(
         middleware,
         routerMiddleware(history), // for dispatching history actions
-        // ... other middlewares ...
+        thunk
       ),
       enhancer
     ),

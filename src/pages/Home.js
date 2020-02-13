@@ -17,7 +17,7 @@ import Container from "../components/Container";
 import Benefit from "../components/Benefits";
 import PlaceCard from "../components/places/PlaceCard";
 import data from "../requests/places";
-import { getPlaces } from "../requests/places";
+// import { getPlaces } from "../requests/places";
 
 class Home extends React.Component {
 	constructor(props) {
@@ -27,18 +27,15 @@ class Home extends React.Component {
 			places: data.places,
 		};
 
-		console.log(this.props.places);
-		
-
 		this.hidePlace = this.hidePlace.bind(this);
 	}
 
-	loadPlace(){
-		getPlaces().then(jsonResponse => {
-			const places = jsonResponse.docs;
-		})
+	// loadPlace(){
+	// 	getPlaces().then(jsonResponse => {
+	// 		const places = jsonResponse.docs;
+	// 	})
 		
-	}
+	// }
 
 	places() {
 		return this.state.places.map((place, index) => {
@@ -72,7 +69,7 @@ class Home extends React.Component {
 
 							<img
 								className='Header-illustration'
-								src={process.env.PUBLIC_URL + "/images/place.png"}></img>
+								src={process.env.PUBLIC_URL + "/images/place.png"} alt="Header-illustration"></img>
 						</div>
 						<div>
 							<Benefit></Benefit>

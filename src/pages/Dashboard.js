@@ -1,39 +1,31 @@
 /** @format */
 
 import React from "react";
+import { connect } from 'react-redux';
 import FlatButton from "material-ui/FlatButton";
 import { Link } from "react-router-dom";
 import { FloatingActionButton } from "material-ui";
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Container from "../components/Container";
-
-import { getPlaces } from "../requests/places";
 import PlaceHorizontal from "../components/places/PlaceHorizontal";
 
-export default class Dashboard extends React.Component {
+import * as actions from '../actions/placesActions';
+
+class Dashboard extends React.Component {
 
   constructor(props) {
 		super(props);
-
-		this.state = {
-			places: []
-		}
 
 		this.loadPlace()
 	}
 
 	loadPlace(){
-		getPlaces().then(jsonResponse => {
-			this.setState({
-				places: jsonResponse.docs
-			})
-		})
-		
+		this.props.dispatch(actions.loadAll())
 	}
 
   places(){
-		return this.state.places.map((place, index) => {
+		return this.props.places.map((place, index) => {
 			return <PlaceHorizontal place={place} key={index} />
 		})
   }
@@ -64,3 +56,11 @@ export default class Dashboard extends React.Component {
 		);
 	}
 }
+
+function mapStateToProps(state, ownProps) {
+	return{
+		places: state.places
+	}
+}
+
+export default connect(mapStateToProps)(Dashboard);

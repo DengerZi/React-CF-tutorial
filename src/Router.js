@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { BrowserRouter as ReactRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux';
 // import { ConnectedRouter } from 'react-router-redux';
 import { ConnectedRouter } from 'connected-react-router';
@@ -12,12 +12,12 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import App from "./App";
 import Place from "./pages/Place";
-
+import NewPlace from './pages/places/NewPlace';
 
 class Router extends React.Component {
 	signedInRoutes() {
 		if (this.props.user.jwt) {
-			return <Route path='/new' render={() => <h1>Welcome</h1>}></Route>;
+			return <Route path='/new' component={NewPlace}></Route>;
 		}
 	}
 
