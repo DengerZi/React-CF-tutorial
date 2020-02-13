@@ -20,15 +20,15 @@ class VisitForm extends React.Component{
     
   }
   
-  add(observation){
-    this.props.dispatch(actions.addVisit(this.props.place, observation))
+  add(observation, reaction = 'love'){
+    this.props.dispatch(actions.addVisit(this.props.place, observation, reaction))
   }
 
   render(){
     return(
       <div>
 				<VisitModal place={this.props.place} onSubmit={this.add} ref='modalRef' />
-        <FlatButton label="Agregar un comentario" secondary={true} onClick={this.openVisitsModal} />
+        <FlatButton label="Valorar tu visita al negocio" secondary={true} onClick={this.openVisitsModal} />
         
       </div>
     );

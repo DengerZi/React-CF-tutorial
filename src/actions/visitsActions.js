@@ -11,17 +11,17 @@ export function loadAllSuccess(visits){
 export function loadAllforPlace(slug){
   return (dispatch, getState) => {
     requests.getAllForPlace(slug).then(result => {
-      dispatch(addVisitSuccess(result))
+      dispatch(loadAllSuccess(result))
     })
   }
 }
 
-export function addVisit(place, observation){
+export function addVisit(place, observation, reaction){
   return (dispatch, getState) => {
     let user = getState().user
     if(!user) return null
 
-    requests.add(user.jwt, place, observation).then(result => {
+    requests.add(user.jwt, place, observation, reaction).then(result => {
       dispatch(addVisitSuccess(result))
     }) 
     

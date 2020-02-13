@@ -6,7 +6,7 @@ export default class VisitsCollection extends React.Component{
 
   visits(){
     if(this.props.visits.length < 1 ) return
-    return this.props.visits[0].map((visit, index) => {
+    return this.props.visits.map((visit, index) => {
       return <Visit visit={visit} key={index} />
     })
   }

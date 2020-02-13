@@ -7,6 +7,7 @@ import { yellow700 } from 'material-ui/styles/colors';
 
 import Container from '../Container';
 import Title from '../Title';
+import EmojiPicker from './emoji_picker/EmojiPicker'
 
 export default class VisitModal extends React.Component {
   constructor(props){
@@ -14,6 +15,7 @@ export default class VisitModal extends React.Component {
     this.state = { open: false }
     this.closeModal = this.closeModal.bind(this)
     this.submit = this.submit.bind(this)
+    this.emojiSelected = this.emojiSelected.bind(this)
   }
 
   openModal() {
@@ -31,11 +33,18 @@ export default class VisitModal extends React.Component {
   submit(){
     const observation = this.refs.observationField.getValue()
 
-    this.props.onSubmit(observation)
+    this.props.onSubmit(observation, this.state.reaction)
 
     // this.refs.observationField.setValue("")
 
     this.closeModal()
+  }
+
+  emojiSelected(reaction){
+    console.log(reaction)
+    this.setState({
+      reaction
+    })
   }
 
   render(){
@@ -51,7 +60,9 @@ export default class VisitModal extends React.Component {
                 <h1>Cuéntanos de tu visita <span style={{'backgroundColor': yellow700, 'margin': '0 0.3em'}}>{this.props.place.title}</span></h1>
               </header>
               <div className="row">
-                <div className="col-xs-4 col-sm-2 col-lg-1"></div>
+                <div className="col-xs-4 col-sm-2 col-lg-1">
+                  <EmojiPicker onSelect={this.emojiSelected} />
+                </div>
                 <div className="col-xs">
                   <TextField floatingLabelText="Cuéntanos qué te parecio este lugar" ref="observationField" multiLine={true} style={{'width': '100%'}} />
                   <div style={{'marginTop': '1em'}}>
