@@ -22,7 +22,7 @@ export default class EmojiPicker extends React.Component {
   
   emojiSelected(code){
     const reaction = relation[code]
-    const emojisReordered = [code].concat(emojis.filter(el => el != code))
+    const emojisReordered = [code].concat(emojis.filter(el => el !== code))
 
     this.props.onSelect(reaction);
 

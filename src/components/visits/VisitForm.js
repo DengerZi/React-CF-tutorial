@@ -1,44 +1,53 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import FlatButton from 'material-ui/FlatButton'
+/** @format */
 
-import VisitModal from './VisitModal'
+import React from "react";
+import { connect } from "react-redux";
+import FlatButton from "material-ui/FlatButton";
 
-import * as actions from '../../actions/visitsActions'
+import VisitModal from "./VisitModal";
 
-class VisitForm extends React.Component{
-  constructor(props){
-    super(props);
+import * as actions from "../../actions/visitsActions";
 
-    this.openVisitsModal = this.openVisitsModal.bind(this)
-    this.add = this.add.bind(this)
-  }
+class VisitForm extends React.Component {
+	constructor(props) {
+		super(props);
 
-	openVisitsModal(){
+		this.openVisitsModal = this.openVisitsModal.bind(this);
+		this.add = this.add.bind(this);
+	}
+
+	openVisitsModal() {
 		// console.log(this.refs);
-    this.refs.modalRef.openModal()
-    
-  }
-  
-  add(observation, reaction = 'love'){
-    this.props.dispatch(actions.addVisit(this.props.place, observation, reaction))
-  }
+		this.refs.modalRef.openModal();
+	}
 
-  render(){
-    return(
-      <div>
-				<VisitModal place={this.props.place} onSubmit={this.add} ref='modalRef' />
-        <FlatButton label="Valorar tu visita al negocio" secondary={true} onClick={this.openVisitsModal} />
-        
-      </div>
-    );
-  }
+	add(observation, reaction = "love") {
+		this.props.dispatch(
+			actions.addVisit(this.props.place, observation, reaction),
+		);
+	}
+
+	render() {
+		return (
+			<div>
+				<VisitModal
+					place={this.props.place}
+					onSubmit={this.add}
+					ref='modalRef'
+				/>
+				<FlatButton
+					label='Valorar tu visita al negocio'
+					secondary={true}
+					onClick={this.openVisitsModal}
+				/>
+				<div className='row'></div>
+			</div>
+		);
+	}
 }
 
-function mapStateToProps(state, ownProps){
-  return{
-
-  }
+function mapStateToProps(state, ownProps) {
+	return {};
 }
 
 export default connect(mapStateToProps)(VisitForm);

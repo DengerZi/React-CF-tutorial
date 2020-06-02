@@ -4,9 +4,12 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Card } from "material-ui";
-import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Star from 'material-ui/svg-icons/toggle/star';
+import { yellow700 } from "material-ui/styles/colors";
 
 import * as visitsActions from '../actions/visitsActions';
+import * as favoritesActions from '../actions/favoritesActions';
 
 import Container from "../components/Container";
 import { getPlace } from "../requests/places";
@@ -19,6 +22,7 @@ class Place extends React.Component {
     const slug = props.match.params.slug;
     this.loadPlace(slug);
 
+		this.fav = this.fav.bind(this);
 		this.state = {
 			place: {},
 		};
@@ -36,7 +40,19 @@ class Place extends React.Component {
     })
 	}
 
-	render() {
+	fav(){
+		this.props.dispatch(favoritesActions.add(this.state.place._id))
+	}
+
+	favBtn(){
+		return(
+			<FloatingActionButton onClick={this.fav} backgroundColor={yellow700} className="Fav-btn">
+				<Star />
+			</FloatingActionButton>
+		)
+	}
+
+	render() { 
     const {place} = this.state; // <-- Destructing assignment ES6
 		return (
 			<div className='Place-container'>
@@ -49,6 +65,7 @@ class Place extends React.Component {
 					<div className='row'>
 						<div className='col-xs-12 col-md-8'>
 							<Card className='Place-card'>
+								{this.favBtn()} 
 								<div className='col-xs-12 col-sm-3 col-lg-2'>
 									<img
 										src={place.avatarImage}

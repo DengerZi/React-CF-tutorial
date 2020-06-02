@@ -27,6 +27,13 @@
   animation-iteration-count: infinite;
 }
 
+.Fav-btn{
+  position: absolute;
+  right: -0.5em;
+  top: -2em;
+  cursor: pointer;
+}
+
 .FAB{
   position: fixed; 
   right: 2em;
@@ -137,6 +144,7 @@
 .Place-card{
   text-align: left;
   padding: 30px;
+  position: relative;
 }  
 
 .Place-container{}  
