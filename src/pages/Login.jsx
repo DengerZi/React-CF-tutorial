@@ -1,26 +1,29 @@
 /** @format */
 
 import React from "react";
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
+import { Route, Link } from "react-router-dom";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { connect } from "react-redux";
-import { push } from "react-router-redux";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 
 import Title from "../components/Title";
-import Container from "../components/Container";
+
 import * as actions from "../actions/usersActions";
 
 import { login, signUp } from "../requests/auth";
 
-import { Route, Link } from "react-router-dom";
-
 const NameField = (props) => (
 	<TextField
-		floatingLabelText='Nombre'
+		label='Nombre'
 		type='text'
 		className='textfield'
 		ref={props.nameRef}
+		variant='outlined'
+		fullWidth
 	/>
 );
 
@@ -29,12 +32,9 @@ const LoginActions = (props) => (
 		<Link to='/signup' style={{ marginRight: "1em" }}>
 			Crear nueva cuenta
 		</Link>
-		<Button
-			variant='contained'
-			onClick={props.requestAuth}
-			label='Ingresar'
-			secondary={true}
-		/>
+		<Button variant='contained' onClick={props.requestAuth} color='secondary'>
+		Ingresar
+		</Button>
 	</div>
 );
 
@@ -43,12 +43,9 @@ const SignUpActions = (props) => (
 		<Link to='/login' style={{ marginRight: "1em" }}>
 			Ya tengo cuenta
 		</Link>
-		<Button
-			variant='contained'
-			onClick={props.createAccount}
-			label='Crear cuenta'
-			secondary={true}
-		/>
+		<Button variant='contained' onClick={props.createAccount} color='secondary'>
+			Crear cuenta
+		</Button>
 	</div>
 );
 
@@ -92,49 +89,52 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<div className='row middle-xs'>
-				<div className='col-xs-12 col-sm-6'>
-					<Container>
-						<div style={{ textAlign: "left" }}>
-							<Title />
-							<TextField
-								floatingLabelText='Correo electrónico'
-								type='email'
-								className='textfield'
-								ref='emailField'
-							/>
-							<TextField
-								floatingLabelText='Contraseña'
-								type='password'
-								className='textfield'
-								ref='passwordField'
-							/>
+			<Container maxWidth='xl'>
+				<Grid
+					container
+					direction='row'
+					justify='space-between'
+					alignItems='center'>
+					<Grid item md={4}>
+						<Title />
+						<TextField
+							label='Correo electrónico'
+							type='email'
+							className='textfield'
+							ref='emailField'
+							variant='outlined'
+							fullWidth
+						/>
+						<TextField
+							label='Contraseña'
+							type='password'
+							className='textfield'
+							ref='passwordField'
+							variant='outlined'
+							fullWidth
+						/>
+						<Route
+							path='/signup'
+							exact
+							render={() => (
+								<NameField nameRef={(el) => (this.nameElement = el)} />
+							)}></Route>
+						<div className='Login-actions'>
+							<Route
+								path='/login'
+								exact
+								render={() => (
+									<LoginActions requestAuth={this.requestAuth} />
+								)}></Route>
 							<Route
 								path='/signup'
 								exact
 								render={() => (
-									<NameField nameRef={(el) => (this.nameElement = el)} />
+									<SignUpActions createAccount={this.createAccount} />
 								)}></Route>
-
-							<div className='Login-actions'>
-								<Route
-									path='/login'
-									exact
-									render={() => (
-										<LoginActions requestAuth={this.requestAuth} />
-									)}></Route>
-								<Route
-									path='/signup'
-									exact
-									render={() => (
-										<SignUpActions createAccount={this.createAccount} />
-									)}></Route>
-							</div>
 						</div>
-					</Container>
-				</div>
-				<div className='col-xs-12 col-sm-6'>
-					<div>
+					</Grid>
+					<Grid item md={7}>
 						<Route
 							path='/login'
 							exact
@@ -163,9 +163,9 @@ class Login extends React.Component {
 											")",
 									}}></div>
 							)}></Route>
-					</div>
-				</div>
-			</div>
+					</Grid>
+				</Grid>
+			</Container>
 		);
 	}
 }

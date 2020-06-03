@@ -88,9 +88,7 @@ class Home extends React.Component {
 
 	render() {
 		const { classes } = this.props;
-		console.log('====================================');
-		console.log(this.props);
-		console.log('====================================');
+		
 		return (
 			<section>
 				<div className={classes.HeaderBackground}>
@@ -136,6 +134,10 @@ class Home extends React.Component {
 		);
 	}
 }
+
+Home.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state, ownProps) {
 	return {

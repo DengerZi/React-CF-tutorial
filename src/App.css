@@ -109,8 +109,7 @@
 }
 
 .textfield{
-  display: block !important;
-  width: 100% !important;
+  margin-top: 15px !important;
 }
 
 .Login-actions{
