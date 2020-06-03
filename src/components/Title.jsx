@@ -26,7 +26,7 @@ class Title extends React.Component {
 
 		return (
 			<>
-				<Typography variant='h3' component='h1' className={classes.title}>
+				<Typography variant='h2' component='h1' className={classes.title}>
 					Places
 				</Typography>
 				<Typography variant='body1' gutterBottom className={classes.description}>
