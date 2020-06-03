@@ -7,13 +7,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { TransitionGroup } from "react-transition-group";
 
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { indigo } from "@material-ui/core/colors";
-
 
 import Title from "../components/Title";
 import Container from "../components/Container";
@@ -25,27 +24,36 @@ import data from "../requests/places";
 
 const useStyles = (theme) => ({
 	HeaderIllustration: {
-		position: 'absolute',
+		position: "absolute",
 		zIndex: -1,
 		top: -60,
 		height: 400,
 		right: 0,
-		[theme.breakpoints.down('xs')]: {
+		[theme.breakpoints.down("xs")]: {
 			opacity: 0.3,
-    },
+		},
 	},
 	HeaderBackground: {
 		paddingBottom: 50,
 		paddingTop: 100,
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		textAlign: 'center',
-		minHeight: '22vh',
-		[theme.breakpoints.down('md')]: {
-			textAlign: 'left',
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		textAlign: "center",
+		minHeight: "22vh",
+		[theme.breakpoints.down("md")]: {
+			textAlign: "left",
 			marginLeft: theme.spacing(4),
-    },
+		},
+		[theme.breakpoints.down("sm")]: {
+			marginLeft: theme.spacing(1),
+		},
+	},
+	popularSitesContent: {
+		minHeight: "25vh",
+		backgroundColor: indigo[400],
+		color: "white",
+		padding: "50px 15px",
 	},
 });
 
@@ -88,7 +96,7 @@ class Home extends React.Component {
 
 	render() {
 		const { classes } = this.props;
-		
+
 		return (
 			<section>
 				<div className={classes.HeaderBackground}>
@@ -110,24 +118,12 @@ class Home extends React.Component {
 					</Container>
 				</div>
 
-				<div
-					style={{
-						backgroundColor: indigo[400],
-						color: "white",
-						padding: '30px 15px',
-					}}>
+				<div className={classes.popularSitesContent}>
 					<Container>
 						<Typography variant='h4' gutterBottom>
 							Sitios Populares
 						</Typography>
-						<Grid
-							container
-							direction='row'
-							justify='start'
-							alignItems='center'
-							spacing={1}>
-							{this.places()}
-						</Grid>
+						<TransitionGroup className='row'>{this.places()}</TransitionGroup>
 					</Container>
 				</div>
 			</section>

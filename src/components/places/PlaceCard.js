@@ -6,6 +6,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import { CSSTransition } from "react-transition-group";
 
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -15,20 +16,22 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Fade from '@material-ui/core/Fade';
 
 const useStyles = (theme) => ({
 	cover: {
 		height: 250,
-		[theme.breakpoints.down('md')]: {
+		[theme.breakpoints.down("md")]: {
 			height: 200,
-    },
-		[theme.breakpoints.down('sm')]: {
+		},
+		[theme.breakpoints.down("sm")]: {
 			height: 350,
-    },
+		},
 	},
 	description: {
-		textAlign: 'justify',
+		textAlign: "justify",
+	},
+	cardContent: {
+		padding: theme.spacing(1),
 	}
 });
 
@@ -43,8 +46,12 @@ class PlaceCard extends React.Component {
 	render() {
 		const { classes } = this.props;
 		return (
-			<Fade in={true} timeout={{enter: 500, exit: 1000}}>
-				<Grid item xs={12} md={4} key={this.props.place.id}>
+			<CSSTransition
+				unmountOnExit={true}
+				timeout={{ enter: 500, exit: 500 }}
+				classNames='fade-scale'
+				in={this.props.in}>
+				<Grid item xs={12} sm={6} lg={4} key={this.props.place.id} className={classes.cardContent}>
 					<Card>
 						<CardMedia
 							className={classes.cover}
@@ -69,7 +76,7 @@ class PlaceCard extends React.Component {
 						</CardActions>
 					</Card>
 				</Grid>
-			</Fade>
+			</CSSTransition>
 		);
 	}
 }
