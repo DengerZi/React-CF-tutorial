@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { Card, CardHeader } from "material-ui/Card";
+import { Card, CardHeader } from "@material-ui/core";
 import FadeAndScale from "../animations/FadeAndScale";
 import Emoji from "./emoji_picker/Emoji";
 import { relationInverse } from "./emoji_picker/emojis";

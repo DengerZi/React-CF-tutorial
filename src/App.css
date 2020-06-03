@@ -41,24 +41,26 @@
 }
 
 .Header-background{
-  padding: 50px;
+  padding-bottom: 50px;
   padding-top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  min-height: 22vh;
 }
 
 .Header-main{
   margin-bottom: 2em;
-  margin-left: -200px; 
+  position: relative;
 }
 
 .Header-illustration{
   position: absolute;
   z-index: -1;
-  top: -20px;
+  top: -60px;
   height: 400px;
+  right: 0;
 }
 
 .Header-benefit{

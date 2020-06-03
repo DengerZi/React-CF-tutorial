@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { push } from "react-router-redux";
 
@@ -15,7 +15,7 @@ import { login, signUp } from "../requests/auth";
 
 import { Route, Link } from "react-router-dom";
 
-const NameField = props => (
+const NameField = (props) => (
 	<TextField
 		floatingLabelText='Nombre'
 		type='text'
@@ -24,12 +24,13 @@ const NameField = props => (
 	/>
 );
 
-const LoginActions = props => (
+const LoginActions = (props) => (
 	<div>
 		<Link to='/signup' style={{ marginRight: "1em" }}>
 			Crear nueva cuenta
 		</Link>
-		<RaisedButton
+		<Button
+			variant='contained'
 			onClick={props.requestAuth}
 			label='Ingresar'
 			secondary={true}
@@ -37,12 +38,13 @@ const LoginActions = props => (
 	</div>
 );
 
-const SignUpActions = props => (
+const SignUpActions = (props) => (
 	<div>
 		<Link to='/login' style={{ marginRight: "1em" }}>
 			Ya tengo cuenta
 		</Link>
-		<RaisedButton
+		<Button
+			variant='contained'
 			onClick={props.createAccount}
 			label='Crear cuenta'
 			secondary={true}
@@ -65,12 +67,10 @@ class Login extends React.Component {
 			password: this.refs.passwordField.getValue(),
 		};
 
-		login(credentials)
-			.then(this.auth)
-			.catch(console.log);
+		login(credentials).then(this.auth).catch(console.log);
 	}
 
-	auth(data){
+	auth(data) {
 		this.props.dispatch(actions.login(data.jwt));
 		this.props.dispatch(actions.loadUser(data.user));
 		this.props.dispatch(push("/"));
@@ -78,7 +78,7 @@ class Login extends React.Component {
 
 	createAccount() {
 		console.log(this.nameElement);
-		
+
 		const credentials = {
 			email: this.refs.emailField.getValue(),
 			password: this.refs.passwordField.getValue(),
@@ -86,10 +86,8 @@ class Login extends React.Component {
 		};
 
 		console.log(credentials);
-		
-		signUp(credentials)
-			.then(this.auth)
-			.catch(console.log);
+
+		signUp(credentials).then(this.auth).catch(console.log);
 	}
 
 	render() {
@@ -111,7 +109,12 @@ class Login extends React.Component {
 								className='textfield'
 								ref='passwordField'
 							/>
-							<Route path='/signup' exact render={() => <NameField nameRef={ (el) => this.nameElement = el } />}></Route>
+							<Route
+								path='/signup'
+								exact
+								render={() => (
+									<NameField nameRef={(el) => (this.nameElement = el)} />
+								)}></Route>
 
 							<div className='Login-actions'>
 								<Route

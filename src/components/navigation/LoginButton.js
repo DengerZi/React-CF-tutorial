@@ -1,13 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 
 export default class LoginButton extends React.Component {
   render(){
     return (
-      <Link to="/login">
-        <FlatButton label="Iniciar sesión" style={{'color': 'white', 'marginTop': '6px'}} />
-      </Link>
+      <Button href="/login" style={{color: 'white'}}>Iniciar sesión</Button>
     )
   }
 };

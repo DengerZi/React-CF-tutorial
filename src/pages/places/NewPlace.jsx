@@ -3,9 +3,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import RaisedButton from "material-ui/RaisedButton";
-import TextField from "material-ui/TextField";
-import Card from "material-ui/Card";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
 
 import Container from "../../components/Container";
 import Title from "../../components/Title";
@@ -52,7 +52,7 @@ class NewPlace extends React.Component {
 
 		requests
 			.createPlace(data, this.props.user.jwt)
-			.then(data => {
+			.then((data) => {
 				this.props.dispatch(push("/"));
 				this.setState({ uploading: false });
 
@@ -116,10 +116,11 @@ class NewPlace extends React.Component {
 							/>
 
 							<div style={{ textAlign: "right", marginTop: "1em" }}>
-								<RaisedButton
+								<Button
+									variant='contained'
 									label='Guardar'
-                  onClick={this.createPlace}
-                  disabled={this.state.uploading}
+									onClick={this.createPlace}
+									disabled={this.state.uploading}
 									secondary={true}
 								/>
 							</div>
@@ -131,7 +132,7 @@ class NewPlace extends React.Component {
 	}
 }
 
-export default connect(function(state, ownPlace) {
+export default connect(function (state, ownPlace) {
 	return {
 		user: state.user,
 	};

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import FlatButton from "material-ui/FlatButton";
+import Button from "@material-ui/core/Button";
 
 import VisitModal from "./VisitModal";
 
@@ -35,7 +35,7 @@ class VisitForm extends React.Component {
 					onSubmit={this.add}
 					ref='modalRef'
 				/>
-				<FlatButton
+				<Button
 					label='Valorar tu visita al negocio'
 					secondary={true}
 					onClick={this.openVisitsModal}

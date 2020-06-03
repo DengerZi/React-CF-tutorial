@@ -1,13 +1,20 @@
-import React from 'react';
+/** @format */
 
-const Container = (props) => {
-  return (
-    <div className="row center-xs" style={{"width":"100%"}}>
-      <div className="col-lg-9 col-md-8 col-sm-12 col-xs-12">
-        {props.children}
-      </div>
-    </div>
-  );
-}
+import React from "react";
 
-export default Container;
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+
+const ContainerRoot = (props) => {
+	return (
+		<Container maxWidth='lg' disableGutters>
+			<Grid container direction='row' justify='center' alignItems='center'>
+				<Grid item xs={12} sm={12} md={11} lg={11}>
+					{props.children}
+				</Grid>
+			</Grid>
+		</Container>
+	);
+};
+
+export default ContainerRoot;

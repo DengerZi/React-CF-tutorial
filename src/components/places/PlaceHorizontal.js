@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardText, CardActions, FlatButton } from 'material-ui';
+import { Card, CardHeader, CardContent, CardActions, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 export default class PlaceHorizontal extends React.Component{
@@ -17,12 +17,12 @@ export default class PlaceHorizontal extends React.Component{
             />
             <div className="row middle-xs">
               <div className="col-xs-6 col-sm-8 col-lg-9">
-                <CardText>{this.props.place.description}</CardText>
+                <CardContent>{this.props.place.description}</CardContent>
               </div>
               <div className="col-xs">
                 <CardActions>
                   <Link to={"/lugares/" + this.props.place.slug}>
-                    <FlatButton label="Ver más"/>
+                    <Button label="Ver más"/>
                   </Link>
                 </CardActions>
               </div>

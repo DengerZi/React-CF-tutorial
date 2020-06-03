@@ -5,19 +5,49 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import { Link } from "react-router-dom";
-import RaisedButton from "material-ui/RaisedButton"; 
-import { indigo400 } from "material-ui/styles/colors";
-import TranstionGroup from "react-transition-group/TransitionGroup";
-import { connect } from 'react-redux'; 
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { indigo } from "@material-ui/core/colors";
+
 
 import Title from "../components/Title";
 import Container from "../components/Container";
 import Benefit from "../components/Benefits";
 import PlaceCard from "../components/places/PlaceCard";
+
 import data from "../requests/places";
 // import { getPlaces } from "../requests/places";
+
+const useStyles = (theme) => ({
+	HeaderIllustration: {
+		position: 'absolute',
+		zIndex: -1,
+		top: -60,
+		height: 400,
+		right: 0,
+		[theme.breakpoints.down('xs')]: {
+			opacity: 0.3,
+    },
+	},
+	HeaderBackground: {
+		paddingBottom: 50,
+		paddingTop: 100,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
+		minHeight: '22vh',
+		[theme.breakpoints.down('md')]: {
+			textAlign: 'left',
+			marginLeft: theme.spacing(4),
+    },
+	},
+});
 
 class Home extends React.Component {
 	constructor(props) {
@@ -34,7 +64,7 @@ class Home extends React.Component {
 	// 	getPlaces().then(jsonResponse => {
 	// 		const places = jsonResponse.docs;
 	// 	})
-		
+
 	// }
 
 	places() {
@@ -52,24 +82,29 @@ class Home extends React.Component {
 
 	hidePlace(place) {
 		this.setState({
-			places: this.state.places.filter(el => el !== place),
+			places: this.state.places.filter((el) => el !== place),
 		});
 	}
 
 	render() {
+		const { classes } = this.props;
+		console.log('====================================');
+		console.log(this.props);
+		console.log('====================================');
 		return (
 			<section>
-				<div className='Header-background'>
+				<div className={classes.HeaderBackground}>
 					<Container>
 						<div className='Header-main'>
 							<Title></Title>
-							<Link to='/signup'>
-								<RaisedButton label='Crear cuenta gratuita' secondary={true} />
-							</Link>
+							<Button variant='contained' color='secondary' href='/signup'>
+								Crear cuenta gratuita
+							</Button>
 
 							<img
-								className='Header-illustration'
-								src={process.env.PUBLIC_URL + "/images/place.png"} alt="Header-illustration"></img>
+								className={classes.HeaderIllustration}
+								src={process.env.PUBLIC_URL + "/images/place.png"}
+								alt='Header-illustration'></img>
 						</div>
 						<div>
 							<Benefit></Benefit>
@@ -79,23 +114,33 @@ class Home extends React.Component {
 
 				<div
 					style={{
-						backgroundColor: indigo400,
-						padding: "50px",
+						backgroundColor: indigo[400],
 						color: "white",
+						padding: '30px 15px',
 					}}>
-					<h3 style={{ fontSize: "24px" }}>Sitios Populares</h3>
-					<TranstionGroup className='row'>{this.places()}</TranstionGroup>
+					<Container>
+						<Typography variant='h4' gutterBottom>
+							Sitios Populares
+						</Typography>
+						<Grid
+							container
+							direction='row'
+							justify='start'
+							alignItems='center'
+							spacing={1}>
+							{this.places()}
+						</Grid>
+					</Container>
 				</div>
 			</section>
 		);
 	}
 }
 
-
 function mapStateToProps(state, ownProps) {
 	return {
-		places: state.places
-	}
+		places: state.places,
+	};
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(withStyles(useStyles)(Home));

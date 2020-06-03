@@ -1,38 +1,74 @@
-import React from 'react';
+/** @format */
 
-import AppBar from 'material-ui/AppBar';
+import React from "react";
+import PropTypes from "prop-types";
 
-import {indigo600} from 'material-ui/styles/colors';
+import { withStyles } from "@material-ui/core/styles";
 
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
-export default class MyAppBar extends React.Component {
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
 
-  getName(){
-    if(this.props.user.name)
-      return this.props.user.name;
-    if(this.props.user.email)
-      return this.props.user.email.split("@")[0];
-  }
+const useStyles = (theme) => ({
+	root: {
+		flexGrow: 1,
+	},
+	menuButton: {
+		marginRight: theme.spacing(2),
+	},
+	title: {
+		flexGrow: 1,
+	},
+});
 
-  title(user) {
-    return (
-      <span style={{'cursor': 'pointer', 'textTransform': 'capitalize'}}>
-        { this.props.user.jwt ? 'Aloha ' + this.getName() : 'Places' }
-      </span>
-    );
-  }
+class MyAppBar extends React.Component {
+	getName() {
+		if (this.props.user.name) return this.props.user.name;
+		if (this.props.user.email) return this.props.user.email.split("@")[0];
+	}
 
-  render(){
-    return(
-      <AppBar
-        title={this.title()}
-        style={{'backgroundColor': indigo600}}
-        onTitleClick={this.props.goHome}
-        showMenuIconButton={false}
-        iconElementRight={ this.props.user.jwt ? <LogoutButton logout={this.props.logout} /> : <LoginButton /> }
-      />
-    )
-  }
+	title(user) {
+		return (
+			<span style={{ cursor: "pointer", textTransform: "capitalize" }}>
+				{this.props.user.jwt ? "Aloha " + this.getName() : "Places"}
+			</span>
+		);
+	}
+
+	render() {
+		const { classes } = this.props;
+		return (
+			<AppBar position='static'>
+				<Toolbar>
+					{/* <IconButton
+						edge='start'
+						className={classes.menuButton}
+						color='inherit'
+						aria-label='menu'>
+						<MenuIcon />
+					</IconButton> */}
+					<Typography
+						variant='h6'
+						className={classes.title}
+						onClick={this.props.goHome}>
+						{this.title()}
+					</Typography>
+					{this.props.user.jwt ? (
+						<LogoutButton logout={this.props.logout} />
+					) : (
+						<LoginButton />
+					)}
+				</Toolbar>
+			</AppBar>
+		);
+	}
 }
+
+MyAppBar.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(useStyles)(MyAppBar);

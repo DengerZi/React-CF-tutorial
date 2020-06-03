@@ -3,10 +3,10 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
-import { Card } from "material-ui";
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import Star from 'material-ui/svg-icons/toggle/star';
-import { yellow700 } from "material-ui/styles/colors";
+import { Card } from "@material-ui/core";
+import IconButton from '@material-ui/core/IconButton';
+import Star from '@material-ui/icons/Star';
+import { yellow } from "@material-ui/core/colors";
 
 import * as visitsActions from '../actions/visitsActions';
 import * as favoritesActions from '../actions/favoritesActions';
@@ -46,9 +46,9 @@ class Place extends React.Component {
 
 	favBtn(){
 		return(
-			<FloatingActionButton onClick={this.fav} backgroundColor={yellow700} className="Fav-btn">
+			<IconButton onClick={this.fav} backgroundColor={yellow[700]} className="Fav-btn">
 				<Star />
-			</FloatingActionButton>
+			</IconButton>
 		)
 	}
 

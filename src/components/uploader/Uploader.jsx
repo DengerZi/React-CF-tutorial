@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import RaisedButton from "material-ui/RaisedButton";
+import Button from "@material-ui/core/Button";
 
 export default class Uploader extends React.Component {
 	constructor(props) {
@@ -24,12 +24,12 @@ export default class Uploader extends React.Component {
 		let file = ev.target.files[0];
 
 		if (!file) return;
-    console.log(file);
-    this.setState({
-      file: file
-    })
+		console.log(file);
+		this.setState({
+			file: file,
+		});
 
-    this.props.getFile(this.props.type, file)
+		this.props.getFile(this.props.type, file);
 	}
 
 	render() {
@@ -41,8 +41,9 @@ export default class Uploader extends React.Component {
 					ref='file'
 					onChange={this.handFile}
 				/>
-        <span style={{marginRight: "0.5em"}} >{this.state.file.name}</span>
-				<RaisedButton
+				<span style={{ marginRight: "0.5em" }}>{this.state.file.name}</span>
+				<Button
+					variant='contained'
 					label={this.props.label}
 					primary={true}
 					onClick={this.openInput}

@@ -1,20 +1,20 @@
 import React from 'react';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVert from '@material-ui/icons/MoreVert';
 
 export default class LogoutButton extends React.Component {
   render(){
     return (
-      <IconMenu
-      iconButtonElement={<IconButton iconStyle={{'fill': 'white'}}><MoreVertIcon /></IconButton>}
+      <Menu
+      iconButtonElement={<IconButton iconStyle={{'fill': 'white'}}><MoreVert /></IconButton>}
       anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       targetOrigin={{horizontal: 'right', vertical: 'top'}}
     >
       <MenuItem primaryText="Refresh" />
       <MenuItem primaryText="Cerrar sesión" onClick={this.props.logout} />
-    </IconMenu>
+    </Menu>
     )
   }
 };

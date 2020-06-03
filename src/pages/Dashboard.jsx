@@ -2,10 +2,10 @@
 
 import React from "react";
 import { connect } from 'react-redux';
-import FlatButton from "material-ui/FlatButton";
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { FloatingActionButton } from "material-ui";
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import { IconButton } from "@material-ui/core";
+import ContentAdd from '@material-ui/icons/Add';
 
 import Container from "../components/Container";
 import PlaceHorizontal from "../components/places/PlaceHorizontal";
@@ -34,18 +34,18 @@ class Dashboard extends React.Component {
 		return (
 			<div>
 				<Link to="/new">
-					<FloatingActionButton 
+					<IconButton 
 						className="FAB"
 						secondary={true}>
 							<ContentAdd />
-					</FloatingActionButton>
+					</IconButton>
 				</Link>
 				<Container>
 					<div className="row">
 						<div className="col-xs-12 col-md-2" style={{"textAlign":"left"}}>
-							<FlatButton label="Explorar" />
-							<FlatButton label="Favoritos" />
-							<FlatButton label="Visitas Previas" />
+							<Button label="Explorar" />
+							<Button label="Favoritos" />
+							<Button label="Visitas Previas" />
 						</div>
 						<div className="col-xs-12 col-md-10">
               {this.places()}
