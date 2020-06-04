@@ -1,10 +1,13 @@
 /** @format */
 
 import React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
 import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import { Route, Link } from "react-router-dom";
 
+import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -15,6 +18,45 @@ import Title from "../components/Title";
 import * as actions from "../actions/usersActions";
 
 import { login, signUp } from "../requests/auth";
+
+const useStyles = (theme) => ({
+	gridContent: {
+		justifyContent: "space-between",
+		alignItems: "center",
+		flexDirection: "row",
+		[theme.breakpoints.down("sm")]: {
+			justifyContent: "flex-start",
+			alignItems: "flex-start",
+			flexDirection: 'column-reverse',
+		},
+	},
+	loginBackground: {
+		height: "100vh",
+		backgroundSize: "cover",
+		backgroundPosition: "center",
+		[theme.breakpoints.down("sm")]: {
+			height: "40vh",
+		},
+		[theme.breakpoints.down("xs")]: {
+			height: "25vh",
+		},
+	},
+	gridItem: {
+		[theme.breakpoints.down("sm")]: {
+			width: "100%",
+		},
+	},
+	gridItemInputs: {
+		paddingLeft: theme.spacing(2),
+		paddingRight: theme.spacing(2),
+		[theme.breakpoints.down("sm")]: {
+			paddingRight: theme.spacing(2),
+			paddingLeft: theme.spacing(2),
+			paddingTop: theme.spacing(6),
+			paddingBottom: theme.spacing(2),
+		},
+	}
+});
 
 const NameField = (props) => (
 	<TextField
@@ -32,8 +74,8 @@ const LoginActions = (props) => (
 		<Link to='/signup' style={{ marginRight: "1em" }}>
 			Crear nueva cuenta
 		</Link>
-		<Button variant='contained' onClick={props.requestAuth} color='secondary'>
-		Ingresar
+		<Button variant='contained' onClick={props.requestAuth} color='secondary' disabled={true}>
+			Ingresar
 		</Button>
 	</div>
 );
@@ -43,7 +85,7 @@ const SignUpActions = (props) => (
 		<Link to='/login' style={{ marginRight: "1em" }}>
 			Ya tengo cuenta
 		</Link>
-		<Button variant='contained' onClick={props.createAccount} color='secondary'>
+		<Button variant='contained' onClick={props.createAccount} color='secondary' disabled={true}>
 			Crear cuenta
 		</Button>
 	</div>
@@ -88,14 +130,12 @@ class Login extends React.Component {
 	}
 
 	render() {
+		const { classes } = this.props;
+
 		return (
-			<Container maxWidth='xl'>
-				<Grid
-					container
-					direction='row'
-					justify='space-between'
-					alignItems='center'>
-					<Grid item md={4}>
+			<Container maxWidth='xl' disableGutters>
+				<Grid container className={classes.gridContent}>
+					<Grid item xs={12} sm={12} md={5} className={clsx(classes.gridItem, classes.gridItemInputs)}>
 						<Title />
 						<TextField
 							label='Correo electrónico'
@@ -134,13 +174,13 @@ class Login extends React.Component {
 								)}></Route>
 						</div>
 					</Grid>
-					<Grid item md={7}>
+					<Grid item xs={12} sm={12} md={7} className={classes.gridItem}>
 						<Route
 							path='/login'
 							exact
 							render={() => (
 								<div
-									className='Login-background'
+									className={classes.loginBackground}
 									style={{
 										backgroundImage:
 											"url(" +
@@ -154,7 +194,7 @@ class Login extends React.Component {
 							exact
 							render={() => (
 								<div
-									className='Login-background'
+									className={classes.loginBackground}
 									style={{
 										backgroundImage:
 											"url(" +
@@ -170,10 +210,14 @@ class Login extends React.Component {
 	}
 }
 
+Login.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
+
 function mapStateToProps(state, ownProps) {
 	return {
 		user: state.user,
 	};
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(withStyles(useStyles)(Login));

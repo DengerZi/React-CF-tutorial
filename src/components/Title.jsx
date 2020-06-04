@@ -11,6 +11,9 @@ const useStyles = (theme) => ({
 		[theme.breakpoints.down('md')]: {
 			textAlign: 'left',
     },
+		[theme.breakpoints.down('xs')]: {
+			fontSize: 36,
+    },
 	},
 	description: {
 		[theme.breakpoints.down('md')]: {
